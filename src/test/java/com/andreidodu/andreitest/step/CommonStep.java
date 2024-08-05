@@ -1,4 +1,4 @@
-package com.andreidodu.andre_i_test.step;
+package com.andreidodu.andreitest.step;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

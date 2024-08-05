@@ -1,6 +1,7 @@
-package com.andreidodu.andre_i_test.util;
+package com.andreidodu.andreitest.util;
 
-import com.andreidodu.andre_i_test.configuration.WebDriverConfiguration;
+import com.andreidodu.andreitest.configuration.WebDriverConfiguration;
+import com.andreidodu.andreitest.sys.ThreadContext;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.Durations;
 import org.openqa.selenium.By;
@@ -11,6 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.time.Duration;
 
 @Slf4j
 @Component
@@ -24,19 +28,18 @@ public class HomePage {
 
     private final static String SEARCH_BOX_ID = "field-:r1h:";
 
-    private WebDriver driver;
 
-    public HomePage goToHomePage() {
-        this.driver = webDriverConfiguration.createNewWebDriver();
-        driver.get(baseURL);
+    public HomePage goToHomePage() throws IOException {
+        ThreadContext.setDriver(webDriverConfiguration.createNewWebDriver());
+        ThreadContext.getDriver().get(baseURL);
         return this;
     }
 
     public HomePage goToSearchBoxAndSearch(String projectName) {
-        WebElement element = this.driver.findElement(new By.ById(SEARCH_BOX_ID));
+        WebElement element = ThreadContext.getDriver().findElement(new By.ById(SEARCH_BOX_ID));
         click(element);
         try {
-            writeText(element, projectName);
+            writeText(element, projectName, Durations.FIVE_MINUTES);
         } catch (Exception e) {
             log.error("Error: {}", e.toString());
         }
@@ -45,20 +48,20 @@ public class HomePage {
 
     public void quit() {
         try {
-            this.driver.close();
-            this.driver.quit();
+            ThreadContext.getDriver().close();
+            ThreadContext.getDriver().quit();
         } catch (Exception e) {
             log.error("error: {}", e.toString());
         }
     }
 
     public <T> void click(T elementAttr) {
-        waitElement(elementAttr);
+        waitElement(elementAttr, Durations.FIVE_MINUTES);
         if (elementAttr
                 .getClass()
                 .getName()
                 .contains("By")) {
-            driver
+            ThreadContext.getDriver()
                     .findElement((By) elementAttr)
                     .click();
         } else {
@@ -66,15 +69,21 @@ public class HomePage {
         }
     }
 
-    public <T> String readTextMessage(T elementAttr) throws InterruptedException {
-        Thread.sleep(2000);
-        return driver
+    public <T> String readTextMessage(T elementAttr, Duration duration) throws InterruptedException {
+        waitElement(elementAttr, duration);
+        return ThreadContext.getDriver()
                 .findElement((By) elementAttr)
                 .getText();
     }
 
-    public <T> void waitElement(T elementAttr) {
-        WebDriverWait tempWait = new WebDriverWait(driver, Durations.FIVE_SECONDS);
+    public <T> boolean isElementPresent(T elementAttr, Duration duration) throws InterruptedException {
+        return ThreadContext.getDriver()
+                .findElement((By) elementAttr).isDisplayed();
+    }
+
+    public <T> void waitElement(T elementAttr, Duration duration) {
+        WebDriverWait tempWait = new WebDriverWait(ThreadContext.getDriver(), duration);
+        // waitElement(elementAttr);
         if (elementAttr
                 .getClass()
                 .getName()
@@ -85,15 +94,15 @@ public class HomePage {
         }
     }
 
-    public <T> void writeText(T elementAttr, String text) throws InterruptedException {
-        WebDriverWait tempWait = new WebDriverWait(driver, Durations.FIVE_SECONDS);
-        waitElement(elementAttr);
+    public <T> void writeText(T elementAttr, String text, Duration duration) throws InterruptedException {
+        WebDriverWait tempWait = new WebDriverWait(ThreadContext.getDriver(), duration);
+        waitElement(elementAttr, Durations.FIVE_MINUTES);
         if (elementAttr
                 .getClass()
                 .getName()
                 .contains("By")) {
             tempWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy((By) elementAttr));
-            driver
+            ThreadContext.getDriver()
                     .findElement((By) elementAttr)
                     .sendKeys(text);
         } else {

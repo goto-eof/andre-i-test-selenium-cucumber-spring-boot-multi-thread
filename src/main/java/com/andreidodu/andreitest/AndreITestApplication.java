@@ -1,4 +1,4 @@
-package com.andreidodu.andre_i_test;
+package com.andreidodu.andreitest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

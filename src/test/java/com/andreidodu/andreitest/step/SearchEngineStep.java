@@ -1,15 +1,16 @@
-package com.andreidodu.andre_i_test.step;
+package com.andreidodu.andreitest.step;
 
+import com.andreidodu.andreitest.util.HomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
+import org.awaitility.Durations;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.andreidodu.andre_i_test.util.HomePage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -48,7 +49,12 @@ public class SearchEngineStep {
     public void checkResult(String result) throws InterruptedException {
         log.info("checking the result, it should be {}", result);
         try {
-            String textRead = this.homePage.readTextMessage(searchResultElement);
+            if (!this.homePage.isElementPresent(searchResultElement, Durations.FIVE_SECONDS)) {
+                assertEquals(result, "");
+                this.homePage.quit();
+                return;
+            }
+            String textRead = this.homePage.readTextMessage(searchResultElement, Durations.ONE_MINUTE);
             assertEquals(result, textRead);
             this.homePage.quit();
             log.info("the result is correct.");
