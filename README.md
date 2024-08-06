@@ -17,4 +17,3 @@ Run the following command from the root of the project:
 
 - this application was developed and tested on Linux Ubuntu 24.04 LTS
 - in case of browser issues, make sure that firefox or chrome were not installed from snap (but with apt-get install)
-- tested on Linux (Ubuntu 24.04)
