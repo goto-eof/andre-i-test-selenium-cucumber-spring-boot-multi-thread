@@ -32,13 +32,8 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    //testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     implementation 'org.seleniumhq.selenium:selenium-java:4.23.0'
-    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.0-M2'
-    //testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.0-M2'
-    //testImplementation 'org.junit.platform:junit-platform-launcher:1.11.0-M2'
-    //testImplementation 'org.junit.platform:junit-platform-suite-api:1.11.0-M2'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
@@ -51,36 +46,14 @@ dependencies {
     implementation 'io.cucumber:cucumber-testng:7.18.1'
 }
 
-/*
-tasks.register('cucumber', Test) {
-    testLogging {
-        exceptionFormat "full" // default is "short"
-        events "started", "passed", "skipped", "failed", "standardOut", "standardError"
-    }
-    useTestNG() {
-        testClassesDirs = testing.suites.test.sources.output.classesDirs
-        classpath = testing.suites.test.sources.runtimeClasspath
-        suiteXmlFiles << new File(rootDir, "/src/test/resources/testng.xml")
-        listeners << 'org.testng.reporters.XMLReporter:generateTestResultAttributes=true,generateGroupsAttribute=true'
-    }
-    description = "Execute cucumber BDD tests."
-    group = "verification"
-
-}
-*/
-/*
 test {
-    useTestNG {
-        preserveOrder true
-    }
-}
-*/
-
-test {
-    useTestNG() {
-        // includeGroups System.getProperty("groups", "cucumber")
-    }
     systemProperties(System.properties)
+
+    useTestNG() {
+    }
+
     scanForTestClasses = false
     testLogging.showStandardStreams = true
 }
+
+test.jvmArgs = ["-Ddataproviderthreadcount=2"]
