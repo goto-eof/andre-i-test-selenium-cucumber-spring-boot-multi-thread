@@ -14,6 +14,7 @@ build/
 .springBeans
 .sts4-cache
 bin/
+target/cucumber.json
 test-output/
 !**/src/main/**/bin/
 !**/src/test/**/bin/

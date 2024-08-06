@@ -1,4 +1,4 @@
-package com.andreidodu.andreitest.configuration;
+package com.andreidodu.andreitest;
 
 
 import com.andreidodu.andreitest.constants.CucumberConfigurationValues;
