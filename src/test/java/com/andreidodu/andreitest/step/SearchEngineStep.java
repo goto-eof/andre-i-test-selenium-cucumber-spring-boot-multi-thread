@@ -4,6 +4,7 @@ import com.andreidodu.andreitest.util.HomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.Durations;
 import org.junit.Assert;
@@ -16,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @Slf4j
+@AllArgsConstructor
 public class SearchEngineStep {
 
-    @Autowired
-    private HomePage homePage;
+    private final HomePage homePage;
 
     private final By searchResultElement = By.cssSelector("#toys > div > div > div > div.chakra-stack.css-j7qwjs > div.css-3fl6io > div > div > div.chakra-stack.css-a8n2v6 > div > p");
 
