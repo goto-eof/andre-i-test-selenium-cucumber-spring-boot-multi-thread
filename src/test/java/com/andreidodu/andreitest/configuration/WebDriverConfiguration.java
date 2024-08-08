@@ -28,16 +28,16 @@ public class WebDriverConfiguration {
 
     private final Environment env;
 
-    @Value("${browser}")
+    @Value("${com.andreidodu.test.browser}")
     private String browser;
 
-    @Value("${os}")
+    @Value("${com.andreidodu.test.os}")
     private String os;
 
     @PostConstruct
     public void initializeWebDrivers() throws IOException {
 
-        String driverPath = env.getRequiredProperty("filename.web-driver." + os + "." + browser);
+        String driverPath = env.getRequiredProperty("com.andreidodu.test.filename.web-driver." + os + "." + browser);
 
         if (BrowserConst.BROWSER_CHROME.equalsIgnoreCase(browser)) {
             Resource resource = new ClassPathResource(driverPath);

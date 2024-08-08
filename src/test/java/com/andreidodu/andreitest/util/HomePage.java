@@ -6,11 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.Durations;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +33,7 @@ public class HomePage {
         return this;
     }
 
-    public HomePage goToSearchBoxAndSearch(String projectName) {
+    public void goToSearchBoxAndSearch(String projectName) {
         WebElement element = ThreadContext.getDriver().findElement(new By.ById(SEARCH_BOX_ID));
         click(element);
         try {
@@ -43,7 +41,6 @@ public class HomePage {
         } catch (Exception e) {
             log.error("Error: {}", e.toString());
         }
-        return this;
     }
 
     public void quit() {

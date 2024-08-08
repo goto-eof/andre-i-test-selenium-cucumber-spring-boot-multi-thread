@@ -16,7 +16,7 @@ import org.testng.annotations.*;
 
 @Slf4j
 @CucumberOptions(
-        plugin = {"pretty", "json:target/cucumber.json"},
+        plugin = {CucumberConfigurationValues.PLUGIN_PRETTY, CucumberConfigurationValues.PLUGIN_JSON_TARGET},
         glue = {CucumberConfigurationValues.GLUE, CucumberConfigurationValues.CUCUMBER_CONFIG},
         features = CucumberConfigurationValues.FEATURES)
 public class RunCucumberTests extends AbstractTestNGCucumberTests {
