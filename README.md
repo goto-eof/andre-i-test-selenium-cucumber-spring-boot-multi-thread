@@ -5,6 +5,18 @@ tests for a web application (in this case the target is my portfolio https://and
 See also the [single-thread](https://github.com/goto-eof/andre-i-test-selenium-cucumber-spring-boot-single-thread)
 version.
 
+# Configuration
+
+Edit `config.properties` by choosing your OS and browser:
+
+```
+# could be linux or windows
+com.andreidodu.test.os=linux
+
+# could be firefox or chrome
+com.andreidodu.test.browser=chrome
+```
+
 # Run tests
 
 Run the following command from the root of the project:
