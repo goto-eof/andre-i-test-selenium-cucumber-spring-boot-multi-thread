@@ -2,6 +2,7 @@ package com.andreidodu.andreitest;
 
 
 import com.andreidodu.andreitest.constants.CucumberConfigurationValues;
+import io.cucumber.spring.CucumberContextConfiguration;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.FeatureWrapper;
@@ -18,7 +19,6 @@ import org.testng.annotations.*;
         plugin = {"pretty", "json:target/cucumber.json"},
         glue = {CucumberConfigurationValues.GLUE, CucumberConfigurationValues.CUCUMBER_CONFIG},
         features = CucumberConfigurationValues.FEATURES)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RunCucumberTests extends AbstractTestNGCucumberTests {
 
     @Autowired
