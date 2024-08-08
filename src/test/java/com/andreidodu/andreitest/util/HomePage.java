@@ -2,6 +2,7 @@ package com.andreidodu.andreitest.util;
 
 import com.andreidodu.andreitest.configuration.WebDriverConfiguration;
 import com.andreidodu.andreitest.sys.ThreadContext;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.Durations;
 import org.openqa.selenium.By;
@@ -18,16 +19,15 @@ import java.time.Duration;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class HomePage {
+
+    private final static String SEARCH_BOX_ID = "field-:r1h:";
 
     @Value("${application.url}")
     private String baseURL;
 
-    @Autowired
-    private WebDriverConfiguration webDriverConfiguration;
-
-    private final static String SEARCH_BOX_ID = "field-:r1h:";
-
+    private final WebDriverConfiguration webDriverConfiguration;
 
     public HomePage goToHomePage() throws IOException {
         ThreadContext.setDriver(webDriverConfiguration.createNewWebDriver());
