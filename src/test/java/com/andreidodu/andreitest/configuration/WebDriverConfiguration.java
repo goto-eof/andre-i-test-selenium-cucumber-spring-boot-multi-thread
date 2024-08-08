@@ -2,6 +2,7 @@ package com.andreidodu.andreitest.configuration;
 
 import com.andreidodu.andreitest.constants.BrowserConst;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -18,30 +20,33 @@ import java.io.IOException;
 
 
 @Configuration
+@RequiredArgsConstructor
 public class WebDriverConfiguration {
 
     public static final String WEBDRIVER_CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     public static final String WEBDRIVER_GECKO_DRIVER_KEY = "webdriver.gecko.driver";
-    @Value("${filename.web-driver.linux.chrome}")
-    private String filenameWebDriverLinuxChrome;
 
-    @Value("${filename.web-driver.linux.firefox}")
-    private String filenameWebDriverLinuxFirefox;
+    private final Environment env;
 
     @Value("${browser}")
     private String browser;
 
+    @Value("${os}")
+    private String os;
+
     @PostConstruct
     public void initializeWebDrivers() throws IOException {
 
+        String driverPath = env.getRequiredProperty("filename.web-driver." + os + "." + browser);
+
         if (BrowserConst.BROWSER_CHROME.equalsIgnoreCase(browser)) {
-            Resource resource = new ClassPathResource(filenameWebDriverLinuxChrome);
+            Resource resource = new ClassPathResource(driverPath);
             System.setProperty(WEBDRIVER_CHROME_DRIVER_KEY, resource.getURI().getPath());
             return;
         }
 
         if (BrowserConst.BROWSER_FIREFOX.equalsIgnoreCase(browser)) {
-            Resource resource = new ClassPathResource(filenameWebDriverLinuxFirefox);
+            Resource resource = new ClassPathResource(driverPath);
             System.setProperty(WEBDRIVER_GECKO_DRIVER_KEY, resource.getURI().getPath());
         }
 
@@ -51,7 +56,9 @@ public class WebDriverConfiguration {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         Proxy proxy = buildProxySettings();
         firefoxOptions.setCapability("proxy", proxy);
-        return new FirefoxDriver(firefoxOptions);
+        FirefoxDriver driver = new FirefoxDriver(firefoxOptions);
+        driver.manage().window().maximize();
+        return driver;
     }
 
     private static Proxy buildProxySettings() {
@@ -66,7 +73,9 @@ public class WebDriverConfiguration {
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
         Proxy proxy = buildProxySettings();
         chromeOptions.setCapability("proxy", proxy);
-        return new ChromeDriver(chromeOptions);
+        ChromeDriver driver = new ChromeDriver(chromeOptions);
+        driver.manage().window().maximize();
+        return driver;
     }
 
 
