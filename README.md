@@ -1,4 +1,4 @@
-# Cucumber + Selenium + Spring Boot POC (multi-thread)
+# Cucumber + Selenium + TestNG + Spring Boot POC (multi-thread)
 
 POC implemented with the latest versions of Cucumber + Selenium + TestNG + Spring Boot + JDK (21). It allows to make
 automated tests for a web application (in this case the target is my portfolio https://andre-i.eu).
