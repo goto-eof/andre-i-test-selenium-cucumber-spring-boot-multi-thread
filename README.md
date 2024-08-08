@@ -28,4 +28,5 @@ Run the following command from the root of the project:
 # Moreover
 
 - this application was developed on Linux and tested on Linux Ubuntu 24.04 LTS and Windows 11
-- in case of browser issues, make sure that firefox or chrome were not installed from snap (but with apt-get install)
+- for Linux users: in case of browser issues, make sure that firefox or chrome were not installed from snap (but with
+  apt-get install)
