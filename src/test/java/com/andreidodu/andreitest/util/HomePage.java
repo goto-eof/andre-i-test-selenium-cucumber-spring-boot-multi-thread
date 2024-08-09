@@ -1,7 +1,6 @@
 package com.andreidodu.andreitest.util;
 
-import com.andreidodu.andreitest.configuration.WebDriverConfiguration;
-import com.andreidodu.andreitest.sys.ThreadContext;
+import com.andreidodu.andreitest.system.ThreadContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.Durations;
@@ -25,10 +24,13 @@ public class HomePage {
     @Value("${application.url}")
     private String baseURL;
 
-    private final WebDriverConfiguration webDriverConfiguration;
+    @Value("${com.andreidodu.test.browser}")
+    private String browserName;
+
+    private final WebDriverBuilder webDriverBuilder;
 
     public HomePage goToHomePage() throws IOException {
-        ThreadContext.setDriver(webDriverConfiguration.createNewWebDriver());
+        ThreadContext.setDriver(webDriverBuilder.createNewWebDriver(browserName));
         ThreadContext.getDriver().get(baseURL);
         return this;
     }

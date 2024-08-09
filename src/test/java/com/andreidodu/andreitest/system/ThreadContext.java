@@ -1,4 +1,4 @@
-package com.andreidodu.andreitest.sys;
+package com.andreidodu.andreitest.system;
 
 import org.openqa.selenium.WebDriver;
 
