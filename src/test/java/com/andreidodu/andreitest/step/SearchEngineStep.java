@@ -21,9 +21,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class SearchEngineStep {
 
     private final HomePage homePage;
-
-
-    // #toys > div > div > div > div.chakra-stack.css-j7qwjs > div.css-3fl6io > div:nth-child(1) > div > div.chakra-stack.css-a8n2v6 > div > p
     private final By searchResultElement = By.cssSelector("#toys div.toy-wrapper p.toy-name");
 
     @Given("the status of the data has as value {string}")

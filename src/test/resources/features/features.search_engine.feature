@@ -1,10 +1,5 @@
 Feature: Testing search function
 
-  Background: database clean up and restoring status
-    Given cleaning database
-    And restoring session
-    And saving data on db
-
   Scenario Outline: Check if search engine is returning the corretc result
     When searching in the search engine the project name "<project_name>"
     Then the result is "<result>"
