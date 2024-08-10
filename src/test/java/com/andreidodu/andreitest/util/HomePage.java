@@ -19,7 +19,7 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class HomePage {
 
-    private final static String SEARCH_BOX_ID = "field-:r1h:";
+    private final static String SEARCH_BOX_ID = "toy-search-field";
 
     @Value("${application.url}")
     private String baseURL;

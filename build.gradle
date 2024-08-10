@@ -56,4 +56,4 @@ test {
     testLogging.showStandardStreams = true
 }
 
-test.jvmArgs = ["-Ddataproviderthreadcount=2"]
+test.jvmArgs = ["-Ddataproviderthreadcount=5"]
