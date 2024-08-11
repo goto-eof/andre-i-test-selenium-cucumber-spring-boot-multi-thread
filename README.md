@@ -2,8 +2,7 @@
 
 POC implemented with the latest versions of Cucumber + Selenium + TestNG + Spring Boot + JDK (21). It allows to make
 automated tests for a web application (in this case the target is my portfolio https://andre-i.eu).
-See also the [single-thread](https://github.com/goto-eof/andre-i-test-selenium-cucumber-spring-boot-single-thread)
-version.
+See also the [single-thread](https://github.com/goto-eof/andre-i-test-selenium-cucumber-spring-boot-single-thread) and [hybrid](https://github.com/goto-eof/andre-i-test-selenium-cucumber-spring-boot-jpa-hibernate-postgresql-hybrid) versions.
 
 # Configuration
 
